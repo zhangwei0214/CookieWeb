@@ -19,4 +19,5 @@ bin/
 /.metadata/
 /Servers/
 /.settings/
+/target/
 
