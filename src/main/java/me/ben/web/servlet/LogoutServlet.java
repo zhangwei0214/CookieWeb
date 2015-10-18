@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import me.ben.util.CookieUtil;
+import me.ben.util.CookieUtils;
 
-import org.apache.catalina.Session;
 
 public class LogoutServlet extends HttpServlet{
 		public static final String COOKIE_USERNAME="username";
@@ -35,9 +34,8 @@ public class LogoutServlet extends HttpServlet{
 				if(session != null){
 					session.invalidate();
 				}
-				
-				CookieUtil.clearCookie(resp);
-			
+				CookieUtils.clearCookie(resp);
+				resp.sendRedirect("login.jsp?msg=Logout successfully!");
 		}
 		
 		@Override

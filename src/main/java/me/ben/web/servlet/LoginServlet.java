@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import me.ben.app.bean.User;
 import me.ben.app.dao.UserDAO;
-import me.ben.util.CookieUtil;
+import me.ben.util.CookieUtils;
 /**
  * 
  * @author Administrator
@@ -35,11 +35,11 @@ public class LoginServlet extends HttpServlet{
 				resp.addCookie(cookie);
 				resp.sendRedirect("welcome.jsp?msg=Login successfully, Welcome " + username);
 				*/
-				CookieUtil.saveCookie(new User(username,password), resp);
-				resp.sendRedirect("welcome.jsp?msg=Login successfully, Welcome " + username);
+				CookieUtils.saveCookie(new User(username,password), resp);
+				resp.sendRedirect("welcome.jsp");
 			}else{
 				//登录失败 ，  提示
-				resp.sendRedirect("welcome.jsp?msg=Login Failed, username&password not match!");
+				resp.sendRedirect("login.jsp?msg=Login Failed, username&password not match!");
 			}
 			
 		}
