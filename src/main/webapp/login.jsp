@@ -10,22 +10,6 @@
 <title>Login Page</title>
 </head>
 <body>
-<%
-//先判断cookie是否已经存在
-Cookie[] cookieList = request.getCookies();
-if(cookieList!=null && cookieList.length > 0){
-	for(Cookie _cookie : cookieList){
-		if(_cookie.getName().equals(LoginServlet.COOKIE_USERNAME)){
-			String msg = "username exist in cookie username = " + _cookie.getValue();
-			System.out.println(msg);
-			//如果已经 登录，则直接去welcome.jsp
-			response.sendRedirect("welcome.jsp?msg=welcome" + _cookie.getValue() + ", you already logged in ,no need login again!");
-			return;
-		}
-	}
-}
-%>
-
 MSG:<%=request.getParameter("msg")%>
 
 <h2>请登录</h2>  

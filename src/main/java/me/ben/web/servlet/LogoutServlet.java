@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import me.ben.util.CookieUtil;
+
 import org.apache.catalina.Session;
 
 public class LogoutServlet extends HttpServlet{
@@ -19,7 +21,7 @@ public class LogoutServlet extends HttpServlet{
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 				throws ServletException, IOException {
 			
-			
+				/*
 				Cookie cookie = new Cookie(COOKIE_USERNAME,null);
 				//0 	立即删除 
 				//负数 	浏览器关闭时自动删除
@@ -27,9 +29,14 @@ public class LogoutServlet extends HttpServlet{
 				//cookie.setMaxAge(-1);
 				resp.addCookie(cookie);
 				resp.sendRedirect("login.jsp?msg=Logout successfully!");
+				*/
+				//如果有session, 销毁
 				HttpSession session = req.getSession(false);	//默认的getSession() = getSession(true); getSession(false) 不自动创建session
-				if(session != null)
+				if(session != null){
 					session.invalidate();
+				}
+				
+				CookieUtil.clearCookie(resp);
 			
 		}
 		
