@@ -14,8 +14,12 @@ http://localhost:8080/CookieWeb/
 1)用户名密码一致即可登录
 
 已知缺陷:
-1)如果被hack工具截包, 还是能伪造登录系统 (只是黑客无法解密密码)
+1) 如果被hack工具截包, 还是能伪造登录系统 (只是黑客无法解密密码)
+2) filter中取到的用户名密码需要到DB验证， filter会频繁做这件事， 效率会致命
+
 ---------------------------------------------Update Log--------------------------------------------------
 [2015-10-18]
 1) add cookie encrytion
-2) cookie util use session , need remove dependency (for HA scenario)
+2) cookie util use session , need remove dependency (for HA scenario) [Done]
+3) remove redirect parameter for welcome.jsp
+Note:此版本支持HA, 未使用session
