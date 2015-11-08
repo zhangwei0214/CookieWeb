@@ -20,3 +20,6 @@ bin/
 /Servers/
 /.settings/
 /target/
+.classpath
+.project
+

@@ -50,6 +50,9 @@ Note: login.jsp不要开启session  不然logout之后(session销毁), 重定向
 	
 	命令 mvn resources:copy-resources
 	
+4) 增加ant配置  
+    build.xml 调用mvn编译 发布到tomcat 重启tomcat
+	build_standalone.xml ant自己编译(前提是要用mvn的dependency 命令拷贝jar文件)
 	
 	
 思考:
