@@ -29,6 +29,12 @@ Note:此版本支持HA, 未使用session
 2) 增加在线人数统计功能(OnlineCounter) , 在HA的环境下需要把人数统计的变量放到分布式缓存中(e.g. memcached)
 Note: login.jsp不要开启session  不然logout之后(session销毁), 重定向到login.jsp又会重建session,导致在线人数统计失效
 
+[2015-11-08]
+使用mvn jetty:run 
+使用jetty 运行应用程序 (这样就不需要tomcat了)
+http://www.blogjava.net/fancydeepin/archive/2012/06/23/maven-jetty-plugin.html
+注意: jetty run默认的话使用/作为context path， 该项目已经配置成使用项目名称 测试 http://localhost:8080/CookieWeb
+
 思考:
 1) 完全不使用session会造成很多DB查询， 使用session跟cookie配合应该能提高效率，注意session跨server丢失需要从cookie重建
 2) salt ?
