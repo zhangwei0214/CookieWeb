@@ -23,3 +23,13 @@ http://localhost:8080/CookieWeb/
 2) cookie util use session , need remove dependency (for HA scenario) [Done]
 3) remove redirect parameter for welcome.jsp
 Note:此版本支持HA, 未使用session
+
+[2015-11-01]
+1) 开启session的创建， 在HA环境下只要能根据cookie中的值重建session中的值就好， 不必刻意不创建session
+2) 增加在线人数统计功能(OnlineCounter) , 在HA的环境下需要把人数统计的变量放到分布式缓存中(e.g. memcached)
+Note: login.jsp不要开启session  不然logout之后(session销毁), 重定向到login.jsp又会重建session,导致在线人数统计失效
+
+思考:
+1) 完全不使用session会造成很多DB查询， 使用session跟cookie配合应该能提高效率，注意session跨server丢失需要从cookie重建
+2) salt ?
+

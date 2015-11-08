@@ -6,11 +6,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent; 
 import javax.servlet.http.HttpSessionListener; 
 
-public class MySessionListener implements HttpSessionListener { 
+import me.ben.web.online.OnlineCounter;
 
+public class MySessionListener implements HttpSessionListener { 
 	   //comment掉的代码: 应用：在线人数统计
        public void sessionCreated(HttpSessionEvent event) { 
-    	   		/*
+    	   	  /*
               HttpSession session = event.getSession(); 
               ServletContext application = session.getServletContext(); 
               
@@ -28,6 +29,7 @@ public class MySessionListener implements HttpSessionListener {
               */
               //zhangwei
               System.out.println("Session -> 创建");
+              OnlineCounter.addOne();
               System.out.flush();
        } 
 
@@ -41,6 +43,7 @@ public class MySessionListener implements HttpSessionListener {
               sessions.remove(session); 
               */
               System.out.println("Session -> 销毁");
+              OnlineCounter.removeOne();
               System.out.flush();
        } 
 } 
