@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.9.6
+Created-By: Ben Zhang
+Built-Date: 2015-11-08 18:03:27
+Implementation-Title: CookieWeb
+Implementation-Version: 1.0
+Implementation-Vendor: Ben Zhang
+

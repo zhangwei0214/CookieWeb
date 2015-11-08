@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<project name="CookieWeb" default="compile">
+	<property name="dist.dir" value="${basedir}/target" />
+	<!-- Configure the context path for this application -->
+	<property name="path" value="/CookieWeb" />
+	<property name="tomcat.home" value="E:/apache-tomcat-7.0.64(maven_auto_deploy)" />
+	 <property name="webapp" value="E:/apache-tomcat-7.0.64/maven_auto_deploy)/webapps/CookieWeb" />
+	
+     <target name="compile" description="调用mvn进行编译">
+            <exec executable="mvn.cmd">
+                   <arg line="compile"/>
+            </exec>
+     </target>
+	<target name="package" description="调用mvn进行打包">
+			<echo>调用mvn进行打包</echo>  
+            <exec executable="mvn.cmd">
+                   <arg line="package"/>
+            </exec>
+     </target>
+	<target name="copy" description="拷贝文件到tomcat">
+		  <echo>拷贝文件到tomcat</echo>  
+		  <!--删除原来部署的文件-->
+	        <delete dir="${webapp}"></delete>
+	        <mkdir dir="${webapp}" />
+	                                           <!--将编译后的文件拷贝到tomcat目录下-->
+	        <copy todir="${webapp}" overwrite="true">
+	            <fileset dir="${basedir}/target/CookieWeb"/>
+	        </copy>
+	</target>
+	 <target name="start">  
+	        <echo>启动tomcat</echo>  
+	        <exec executable="cmd" dir="${tomcat.home}/bin"  failonerror="false"   
+	                    output="c:/log.txt" append="true" >  
+	             <!-- <arg value="/c" /> -->    
+	             <env key="CATALINA_HOME" path="${tomcat.home}"/>  
+	             <arg value="/c startup.bat" />     
+	        </exec>  
+	 </target> 
+	<target name="shutdown">  
+        <echo>关闭tomcat</echo>  
+        <exec executable="cmd" dir="${tomcat.home}/bin"  failonerror="false"   
+                    output="c:/log.txt" append="true" >  
+             <!-- <arg value="/c" /> -->    
+             <env key="CATALINA_HOME" path="${tomcat.home}"/>  
+             <arg value="/c shutdown.bat" />     
+        </exec>  
+ 	</target>
+	<target name="deploy">
+		<antcall target="package"/>
+		<antcall target="copy"/>
+		<antcall target="start"/>
+	</target>
+	<target name="redeploy">
+		<antcall target="shutdown"/>
+		<antcall target="package"/>
+		<antcall target="copy"/>
+		<antcall target="start"/>
+	</target>
+</project>

@@ -30,11 +30,28 @@ Note:此版本支持HA, 未使用session
 Note: login.jsp不要开启session  不然logout之后(session销毁), 重定向到login.jsp又会重建session,导致在线人数统计失效
 
 [2015-11-08]
-使用mvn jetty:run 
-使用jetty 运行应用程序 (这样就不需要tomcat了)
-http://www.blogjava.net/fancydeepin/archive/2012/06/23/maven-jetty-plugin.html
-注意: jetty run默认的话使用/作为context path， 该项目已经配置成使用项目名称 测试 http://localhost:8080/CookieWeb
+1)使用mvn jetty:run 
+	使用jetty 运行应用程序 (这样就不需要tomcat了)
+	http://www.blogjava.net/fancydeepin/archive/2012/06/23/maven-jetty-plugin.html
+	注意: jetty run默认的话使用/作为context path， 该项目已经配置成使用项目名称 测试 http://localhost:8080/CookieWeb
 
+2)使用 tomcat plugin 部署到standalone tomcat 服务器 (热部署 所以需要tomcat运行)
+	http://my.oschina.net/angel243/blog/178554
+	tomcat 部署  前提:1) tomcat已经启动 2)tomcat中配置了admin用户  3) maven setting.xml 配置了tomcat7 server
+	http://blog.csdn.net/god_wot/article/details/12748983 
+	mvn tomcat7:deploy
+	mvn tomcat7:redeploy
+	mvn tomcat7:undeploy
+
+3) 使用resource plugin 把程序的war包拷贝到tomcat服务器(或者其他任何地方) -> 测试通过  
+    只是资源拷贝, 理论上这种task最好用ant来做
+	遇到的问题(要把configuration 提到execution外面)
+	http://stackoverflow.com/questions/10923944/maven-resources-plugin-error-using-copy-resources-goal-resources-outputdire
+	
+	命令 mvn resources:copy-resources
+	
+	
+	
 思考:
 1) 完全不使用session会造成很多DB查询， 使用session跟cookie配合应该能提高效率，注意session跨server丢失需要从cookie重建
 2) salt ?
